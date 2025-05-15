@@ -6,4 +6,7 @@ python-dotenv
 ruff
 tqdm
 typer
--e .
+fastapi
+scikit-learn
+numpy
+pandas
