@@ -1,0 +1,6 @@
+site_name: Title of your Site
+site_description: Description of your site
+nav:
+  - Getting Started:
+      - Overview: index.md
+theme: readthedocs
