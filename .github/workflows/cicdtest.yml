@@ -12,9 +12,9 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_db
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: mnist_db
         ports:
           - 5432:5432
         options: >-
@@ -24,11 +24,11 @@ jobs:
           --health-retries 5
 
     env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: test_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: mnist_db
       POSTGRES_HOST: postgres
-      POSTGRES_URL: postgresql://postgres:postgres@postgres:5432/test_db
+      POSTGRES_URL: postgresql://root:root@postgres:5432/mnist_db
 
     steps:
       - name: Checkout code
