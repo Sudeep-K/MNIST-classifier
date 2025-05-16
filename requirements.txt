@@ -6,7 +6,12 @@ python-dotenv
 ruff
 tqdm
 typer
-fastapi
+fastapi[standard]
 scikit-learn
 numpy
 pandas
+uvicorn
+pillow
+psycopg2-binary
+python-dotenv
+sqlalchemy

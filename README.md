@@ -1,61 +1,89 @@
-# MNIST-classifier
+# MNIST Digit Classifier API with FastAPI and PostgreSQL
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+This project is a **machine learning-powered web API** built with **FastAPI** that lets users upload handwritten digit images (MNIST style), get digit predictions from a trained model, and store the predicted and true labels in a **PostgreSQL** database. It also provides an endpoint to check prediction accuracy based on stored results.
 
-This is a digit classifier project
+---
 
-## Project Organization
+## Features
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         mnist_classifier and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── mnist_classifier   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes mnist_classifier a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+- Upload image files for digit prediction.
+- Input the true digit label for validation.
+- Store predicted and true labels with timestamps in PostgreSQL.
+- Retrieve overall prediction accuracy from saved data.
+- Dockerized for easy local development with Docker Compose.
+- Uses SQLAlchemy ORM and `psycopg2` for database interaction.
+- Environment variables managed securely using `.env` and `python-dotenv`.
+
+---
+
+## Tech Stack
+
+- Python 3.10
+- FastAPI
+- Uvicorn (ASGI server)
+- scikit-learn (for ML model)
+- PostgreSQL 15
+- SQLAlchemy ORM
+- psycopg2
+- Docker & Docker Compose
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) installed
+- [Docker Compose](https://docs.docker.com/compose/install/) installed
+- Python 3.10+ (optional, if running without Docker)
+
+---
+
+## Setup Environment and Run with Docker Compose
+
+### Step 1: Create `.env` file
+
+Create a `.env` file in the project root with the following content:
+
+```env
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+POSTGRES_URL=
 ```
 
---------
+### Step 2: Build and run with Docker Compose
 
+Run the following command in the project root to build the Docker images and start the containers:
+
+```bash
+docker-compose up --build
+```
+
+## Available API endpoints
+
+### POST /predict/
+
+Upload an image file and provide the true digit label to get a prediction and save results.
+
+Form-data parameters:
+
+```params
+file (file): Image file (e.g., PNG)
+
+true_label (int): True digit label (0-9)
+```
+
+### GET /prediction-accuracy/
+
+Retrieve prediction accuracy statistics from stored data.
+Example response:
+
+```json
+{
+  "total_predictions": 200,
+  "correct_predictions": 178,
+  "incorrect_predictions": 22,
+  "accuracy_percent": 89.0
+}
+```
