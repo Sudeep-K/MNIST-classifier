@@ -28,7 +28,7 @@ jobs:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: mnist_db
       POSTGRES_HOST: postgres
-      POSTGRES_URL: postgresql://root:root@postgres:5432/mnist_db
+      POSTGRES_URL: postgresql://root:root@localhost:5432/mnist_db
 
     steps:
       - name: Checkout code
